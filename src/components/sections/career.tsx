@@ -76,6 +76,13 @@ export function Career() {
                     </li>
                   ))}
                 </ul>
+                {job.tools && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {job.tools.map((tool) => (
+                      <SkillTag key={tool} label={tool} />
+                    ))}
+                  </div>
+                )}
               </div>
             </Reveal>
           ))}

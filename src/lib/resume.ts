@@ -33,14 +33,23 @@ export const education = [
   },
 ];
 
-export const experience = [
+export const experience: {
+  role: string;
+  org: string;
+  period: string;
+  bullets: string[];
+  tools?: string[];
+}[] = [
   {
-    role: "AI Developer (Co-op)",
+    role: "AI Solutions Developer (Co-op)",
     org: "Aecon Group",
     period: "16-month co-op placement",
     bullets: [
-      "Building agents and automation tools using Microsoft Copilot Studio, Azure AI Foundry, and Python.",
+      "Design, build, and deploy AI agents and automation solutions for internal teams across the company, translating department-specific requests into working tools.",
+      "Delivered custom Retrieval-Augmented Generation (RAG) based agents for internal stakeholders, including the nuclear section, to support automated information retrieval and workflow needs.",
+      "Built and shipped solutions end-to-end, from requirements gathering to deployment, using Microsoft Copilot Studio, Azure AI Foundry, and Python.",
     ],
+    tools: ["Microsoft Copilot Studio", "Azure AI Foundry", "Python"],
   },
   {
     role: "Finance at Large",
@@ -106,5 +115,113 @@ export const skillGroups = [
   {
     label: "Data & Reporting",
     skills: ["Data Analysis", "Data Visualization", "Process Analysis"],
+  },
+];
+
+export type Project = {
+  title: string;
+  date: string;
+  description: string;
+  bullets: string[];
+  tags: string[];
+  kind?: "award";
+};
+
+export const projects: Project[] = [
+  {
+    title: "AI-Powered Job Search Application",
+    date: "2026",
+    description:
+      "A full-stack local web app that automates job discovery, normalization, and cover letter generation across enterprise ATS platforms.",
+    bullets: [
+      "Built a full-stack local web application integrating the OpenAI API to automate job discovery, normalization, and cover letter generation across enterprise ATS platforms including Greenhouse, Lever, and Workday.",
+      "Implemented a modular connector pipeline in Python (FastAPI) with per-connector rate limiting, retry logic, failure classification, and health monitoring, enabling reliable multi-source job ingestion.",
+      "Developed a resume recommendation scoring layer that matches job requirements to candidate profiles and generates human-readable recommendation reasons, displayed in a Next.js dashboard.",
+      "Built a LaTeX-based cover letter export pipeline with editable prompt and style settings, structured field mapping, and optional PDF compilation, backed by a SQLite persistence layer.",
+    ],
+    tags: ["Python", "FastAPI", "OpenAI API", "Next.js", "SQLite", "LaTeX"],
+  },
+  {
+    title: "AI Copilot Adoption & Governance Dashboard",
+    date: "2026",
+    description:
+      "An AI-enabled dashboard tracking enterprise AI tool adoption, usage trends, and governance across departments.",
+    bullets: [
+      "Built an AI-enabled dashboard to track, analyze, and visualize enterprise AI tool adoption using Microsoft Graph API, covering usage metrics, feature engagement, and user feedback signals across departments.",
+      "Developed Python data pipelines to process and structure usage logs, enabling trend analysis and anomaly detection to identify low-engagement teams and underutilized features.",
+      "Integrated OpenAI API to generate automated weekly adoption reports in plain English, delivering actionable recommendations for non-technical stakeholders.",
+      "Designed a governance tracking system to support access reviews, policy alignment, and feature rollout documentation.",
+    ],
+    tags: ["Python", "OpenAI API", "Microsoft Graph API", "Data Pipelines"],
+  },
+  {
+    title: "Distribution Network Design & Power Flow Analysis",
+    date: "Apr 2026",
+    description:
+      "A 5-bus electrical distribution network with Newton-Raphson load flow and three-phase fault analysis, automated in MATLAB.",
+    bullets: [
+      "Designed a 5-bus electrical distribution network and implemented Newton-Raphson load flow analysis, computing bus voltages, power losses, and line flows across all nodes.",
+      "Performed three-phase fault analysis at multiple buses, calculating fault currents and voltage deviations to assess system stability and protection requirements.",
+      "Automated Ybus formation and iterative convergence using MATLAB scripts, reducing analysis time by 60%.",
+    ],
+    tags: ["MATLAB", "Power Systems", "Load Flow Analysis", "Fault Analysis"],
+  },
+  {
+    title: "Power System Protection & Equipment Sizing for Industrial Facility",
+    date: "Apr 2026",
+    description:
+      "Electrical distribution system design for an industrial facility, including protection device selection and short-circuit analysis.",
+    bullets: [
+      "Designed electrical distribution system for an industrial facility, including transformer sizing, cable selection, and load allocation across multiple buses.",
+      "Calculated short-circuit currents at key system nodes and selected protective devices (breakers/fuses) to ensure safe fault interruption.",
+      "Produced detailed single-line diagram and engineering calculations reflecting real-world system constraints and safety requirements.",
+    ],
+    tags: ["MATLAB", "Power System Protection", "Short-Circuit Analysis"],
+  },
+  {
+    title: "Digital Signal Processing Project",
+    date: "Dec 2025",
+    description:
+      "A 20-tap FIR bandpass filter and cascaded IIR notch filters designed to remove tonal noise from audio signals.",
+    bullets: [
+      "Designed a 20-tap bandpass FIR filter (1500–2000 Hz passband) using the Parks-McClellan equiripple method, meeting stopband attenuation limits of 0.01 and 0.001.",
+      "Performed magnitude, phase, and spectral analysis across a 4096-point FFT grid to verify linear-phase behavior and ripple constraints across all 3 frequency bands.",
+      "Removed 2 tonal noise components at 1102.5 Hz and 2756.3 Hz using cascaded IIR notch filters (Q=35) and FFT bin zeroing (±40 Hz), producing 2 cleaned audio outputs.",
+    ],
+    tags: ["MATLAB", "Digital Signal Processing", "FIR/IIR Filters", "FFT"],
+  },
+  {
+    title: "FPGA-Based Password Lock System",
+    date: "Apr 2025",
+    description:
+      "A 4-digit Verilog password lock system with FSM architecture, simulated and deployed on FPGA hardware.",
+    bullets: [
+      "Implemented a 4-digit Verilog-based password lock using FSM architecture with 3 modes: login, change-password, and lockout.",
+      "Interfaced 5 switches, 2 push-buttons, 2 LEDs, and 6 seven-segment displays with FPGA I/O pins.",
+      "Simulated all modes in ModelSim and deployed on FPGA board, verifying correct input/output behavior.",
+    ],
+    tags: ["Verilog", "FPGA", "ModelSim", "FSM Design"],
+  },
+  {
+    title: "Winner — York Engineering Competition (YEC), Senior Design",
+    date: "Oct 2025",
+    description:
+      "Control system for a real-world air conditioner prototype, ported from ESP32 to STM32 for enhanced performance.",
+    bullets: [
+      "Engineered the control system for a real-world air conditioner prototype using ESP32, custom circuits, thermoelectric cooler and Arduino firmware, later porting the firmware to STM32 for enhanced performance.",
+    ],
+    tags: ["ESP32", "STM32", "Arduino", "Embedded Systems"],
+    kind: "award",
+  },
+  {
+    title: "Winner — York Engineering Competition (YEC), Programming",
+    date: "Oct 2024",
+    description:
+      "A data-driven web application to analyze and optimize traffic flow using real-time input and automated data processing.",
+    bullets: [
+      "Built a data-driven web application to analyze and optimize traffic flow using real-time user input, automated data processing, and an interactive dashboard interface.",
+    ],
+    tags: ["Data Analysis", "Web Application", "Dashboard"],
+    kind: "award",
   },
 ];
