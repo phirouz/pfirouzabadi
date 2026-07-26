@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { basePath } from "./src/lib/base-path";
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -6,8 +7,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  basePath: "/pfirouzabadi",
-  assetPrefix: "/pfirouzabadi",
+  basePath,
+  assetPrefix: basePath,
 };
 
 export default nextConfig;
