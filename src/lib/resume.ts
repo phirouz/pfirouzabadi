@@ -14,6 +14,13 @@ Outside of technical work, I serve as Finance at Large for the Lassonde Engineer
 
 I'm graduating in 2028 and looking to keep building at the intersection of electrical engineering and applied AI.`;
 
+export const goals = {
+  nearTerm:
+    "Complete my 16-month co-op as an AI Solutions Developer at Aecon Group, building practical AI agent and automation solutions for internal teams. Graduate from York University's Lassonde School of Engineering with a BEng in Electrical Engineering in 2028, continuing to build hands-on experience across embedded systems, power systems, and applied AI.",
+  longTerm:
+    "Grow into a role at the intersection of electrical engineering and AI, combining hardware/systems fundamentals with practical software and automation skills. Continue developing expertise in agent-based AI systems, RAG solutions, and enterprise automation while staying grounded in the engineering principles from my EE background.",
+};
+
 export const education = [
   {
     school: "York University, Lassonde School of Engineering",
@@ -124,7 +131,7 @@ export type Project = {
   description: string;
   bullets: string[];
   tags: string[];
-  kind?: "award";
+  kind?: "award" | "course";
 };
 
 export const projects: Project[] = [
@@ -165,6 +172,7 @@ export const projects: Project[] = [
       "Automated Ybus formation and iterative convergence using MATLAB scripts, reducing analysis time by 60%.",
     ],
     tags: ["MATLAB", "Power Systems", "Load Flow Analysis", "Fault Analysis"],
+    kind: "course",
   },
   {
     title: "Power System Protection & Equipment Sizing for Industrial Facility",
@@ -177,6 +185,7 @@ export const projects: Project[] = [
       "Produced detailed single-line diagram and engineering calculations reflecting real-world system constraints and safety requirements.",
     ],
     tags: ["MATLAB", "Power System Protection", "Short-Circuit Analysis"],
+    kind: "course",
   },
   {
     title: "Digital Signal Processing Project",
@@ -189,6 +198,7 @@ export const projects: Project[] = [
       "Removed 2 tonal noise components at 1102.5 Hz and 2756.3 Hz using cascaded IIR notch filters (Q=35) and FFT bin zeroing (±40 Hz), producing 2 cleaned audio outputs.",
     ],
     tags: ["MATLAB", "Digital Signal Processing", "FIR/IIR Filters", "FFT"],
+    kind: "course",
   },
   {
     title: "FPGA-Based Password Lock System",
@@ -201,6 +211,7 @@ export const projects: Project[] = [
       "Simulated all modes in ModelSim and deployed on FPGA board, verifying correct input/output behavior.",
     ],
     tags: ["Verilog", "FPGA", "ModelSim", "FSM Design"],
+    kind: "course",
   },
   {
     title: "Winner — York Engineering Competition (YEC), Senior Design",

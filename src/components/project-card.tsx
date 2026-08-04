@@ -23,6 +23,12 @@ export function ProjectCard({ project }: { project: Project }) {
         </span>
       </div>
 
+      {project.kind === "course" && (
+        <span className="mt-2 inline-block rounded-md border border-accent/30 bg-accent/10 px-2 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide text-accent">
+          Course Project
+        </span>
+      )}
+
       <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
         {project.description}
       </p>
