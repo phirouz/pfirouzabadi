@@ -3,9 +3,9 @@ import Script from "next/script";
 const THEME_INIT = `
 (function () {
   try {
-    var stored = localStorage.getItem("theme");
-    var theme = stored || "dark";
-    if (theme === "dark") document.documentElement.classList.add("dark");
+    if (localStorage.getItem("theme") === "light") {
+      document.documentElement.classList.remove("dark");
+    }
   } catch (e) {}
 })();
 `;
