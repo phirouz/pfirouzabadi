@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { btnMotion } from "@/lib/ui";
 
 const links = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
   { href: "#career", label: "Career" },
   { href: "#projects", label: "Projects" },
   { href: "#goals", label: "Goals" },
@@ -46,14 +50,14 @@ export function NavBar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-border bg-background/80 backdrop-blur-md"
+          ? "border-b border-border bg-background/70 shadow-sm shadow-black/[0.02] backdrop-blur-lg"
           : "border-b border-transparent bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-        <a href="#home" className="font-heading text-sm font-semibold tracking-tight text-foreground">
+        <a href="#home" className="text-sm font-semibold tracking-tight text-foreground">
           S.Parsa<span className="text-accent">.</span>
         </a>
 
@@ -78,25 +82,16 @@ export function NavBar() {
 
         <div className="flex items-center gap-2 sm:hidden">
           <ThemeToggle />
-          <button
+          <motion.button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="relative flex size-9 items-center justify-center rounded-full border border-border text-foreground transition-all duration-200 hover:border-accent hover:text-accent active:scale-90"
+            {...btnMotion}
+            className="relative flex size-9 items-center justify-center rounded-full border border-border text-foreground transition-colors duration-200 hover:border-accent hover:text-accent"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.75}
-              strokeLinecap="round"
-              className="size-4.5"
-            >
-              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-            </svg>
-          </button>
+            {open ? <X className="size-4.5" /> : <Menu className="size-4.5" />}
+          </motion.button>
         </div>
       </nav>
 

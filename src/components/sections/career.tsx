@@ -1,8 +1,11 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Reveal } from "@/components/reveal";
 import { SkillTag } from "@/components/skill-tag";
 import { withBasePath } from "@/lib/base-path";
 import { education, experience } from "@/lib/resume";
-import { btnPrimaryClass, cardClass, subheadingClass } from "@/lib/ui";
+import { btnMotion, btnPrimaryClass, cardClass, cardHoverMotion, subheadingClass } from "@/lib/ui";
 
 export function Career() {
   return (
@@ -13,7 +16,7 @@ export function Career() {
             <p className="mb-2 font-mono text-sm font-medium uppercase tracking-widest text-accent">
               Career
             </p>
-            <h2 className="font-heading text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               Where I&apos;ve been
             </h2>
           </div>
@@ -25,9 +28,9 @@ export function Career() {
         <div className="mb-16 space-y-6">
           {education.map((item, i) => (
             <Reveal key={item.school} delayMs={i * 80}>
-              <div className={cardClass}>
+              <motion.div className={cardClass} {...cardHoverMotion}>
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h4 className="font-heading text-lg font-semibold text-foreground">
+                  <h4 className="text-lg font-semibold text-foreground">
                     {item.degree}
                   </h4>
                   <span className="font-mono text-xs text-foreground-muted">
@@ -41,7 +44,7 @@ export function Career() {
                     <SkillTag key={course} label={course} />
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </Reveal>
           ))}
         </div>
@@ -52,9 +55,9 @@ export function Career() {
         <div className="mb-16 space-y-6">
           {experience.map((job, i) => (
             <Reveal key={`${job.role}-${job.org}`} delayMs={i * 80}>
-              <div className={cardClass}>
+              <motion.div className={cardClass} {...cardHoverMotion}>
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h4 className="font-heading text-lg font-semibold text-foreground">
+                  <h4 className="text-lg font-semibold text-foreground">
                     {job.role}
                   </h4>
                   <span className="font-mono text-xs text-foreground-muted">
@@ -80,7 +83,7 @@ export function Career() {
                     ))}
                   </div>
                 )}
-              </div>
+              </motion.div>
             </Reveal>
           ))}
         </div>
@@ -94,15 +97,16 @@ export function Career() {
                 Education, experience, projects, and skills in a single document.
               </p>
             </div>
-            <a
+            <motion.a
               href={withBasePath("/resume.pdf")}
               target="_blank"
               rel="noopener noreferrer"
               download
               className={`shrink-0 ${btnPrimaryClass}`}
+              {...btnMotion}
             >
               Download Resume
-            </a>
+            </motion.a>
           </div>
         </Reveal>
       </div>

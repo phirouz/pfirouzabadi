@@ -17,7 +17,7 @@ export function Section({ id, eyebrow, title, children, className = "" }: Sectio
             <p className="mb-2 font-mono text-sm font-medium uppercase tracking-widest text-accent">
               {eyebrow}
             </p>
-            <h2 className="font-heading text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               {title}
             </h2>
           </div>

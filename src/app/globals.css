@@ -3,25 +3,27 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f8fafc;
-  --background-alt: #eef2f8;
-  --foreground: #0f172a;
-  --foreground-muted: #475569;
+  --background: #ffffff;
+  --background-alt: #fafafa;
+  --foreground: #09090b;
+  --foreground-muted: #52525b;
   --card: #ffffff;
-  --border: #e2e8f0;
+  --border: #e4e4e7;
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
+  --accent-rgb: 37, 99, 235;
 }
 
 .dark {
-  --background: #0b1220;
-  --background-alt: #0f1a2e;
-  --foreground: #e5eaf2;
-  --foreground-muted: #92a1b8;
-  --card: #121b30;
-  --border: #22304a;
-  --accent: #4f8dfd;
-  --accent-hover: #7db1ff;
+  --background: #09090b;
+  --background-alt: #111114;
+  --foreground: #f4f4f5;
+  --foreground-muted: #a1a1aa;
+  --card: #121214;
+  --border: #27272a;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --accent-rgb: 56, 189, 248;
 }
 
 @theme inline {
@@ -33,9 +35,8 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-space-grotesk);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 * {
@@ -68,27 +69,7 @@ body {
     opacity: 1 !important;
   }
 
-  [data-circuit] * {
-    animation: none !important;
-  }
-
   .animate-ping {
     animation: none !important;
-  }
-}
-
-@keyframes circuit-flow {
-  to {
-    stroke-dashoffset: -200;
-  }
-}
-
-@keyframes circuit-pulse {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 1;
   }
 }

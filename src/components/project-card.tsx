@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
 import { SkillTag } from "@/components/skill-tag";
+import { SpotlightCard } from "@/components/spotlight-card";
 import type { Project } from "@/lib/resume";
 import { cardClass } from "@/lib/ui";
 
@@ -9,9 +12,9 @@ export function ProjectCard({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={cardClass}>
+    <SpotlightCard className={cardClass}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h4 className="font-heading text-lg font-semibold text-foreground">
+        <h4 className="text-lg font-semibold text-foreground">
           {project.kind === "award" && (
             <span className="mr-2 text-accent" aria-hidden="true">
               ★
@@ -40,26 +43,18 @@ export function ProjectCard({ project }: { project: Project }) {
         ))}
       </div>
 
-      <button
+      <motion.button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="mt-4 flex items-center gap-1.5 rounded text-sm font-medium text-accent transition-all duration-150 hover:text-accent-hover active:scale-95"
+        whileTap={{ scale: 0.95 }}
+        className="mt-4 flex items-center gap-1.5 rounded text-sm font-medium text-accent transition-colors duration-150 hover:text-accent-hover"
       >
         {open ? "Hide details" : "Show details"}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
+        <ChevronDown
           className={`size-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-        >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      </button>
+        />
+      </motion.button>
 
       <div
         className={`grid overflow-hidden transition-all duration-300 ease-out ${
@@ -78,6 +73,6 @@ export function ProjectCard({ project }: { project: Project }) {
           ))}
         </ul>
       </div>
-    </div>
+    </SpotlightCard>
   );
 }

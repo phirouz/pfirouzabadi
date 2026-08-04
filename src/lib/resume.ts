@@ -132,6 +132,12 @@ export type Project = {
   bullets: string[];
   tags: string[];
   kind?: "award" | "course";
+  architecture?: string;
+  code?: {
+    language: string;
+    filename: string;
+    snippet: string;
+  };
 };
 
 export const projects: Project[] = [
@@ -147,6 +153,25 @@ export const projects: Project[] = [
       "Built a LaTeX-based cover letter export pipeline with editable prompt and style settings, structured field mapping, and optional PDF compilation, backed by a SQLite persistence layer.",
     ],
     tags: ["Python", "FastAPI", "OpenAI API", "Next.js", "SQLite", "LaTeX"],
+    architecture:
+      "A FastAPI backend runs a modular connector per ATS platform (Greenhouse, Lever, Workday) behind a shared rate-limiter and retry layer. Normalized listings persist to SQLite, get scored against the candidate profile, and surface in a Next.js dashboard that can trigger LaTeX cover-letter generation and optional PDF compilation.",
+    code: {
+      language: "python",
+      filename: "connector_pipeline.py",
+      snippet: `class ConnectorPipeline:
+    def __init__(self, connector: ATSConnector, max_per_min: int = 30):
+        self.connector = connector
+        self.limiter = RateLimiter(max_per_min)
+
+    async def fetch_listings(self) -> list[Listing]:
+        async with self.limiter:
+            try:
+                raw = await self.connector.fetch()
+            except ConnectorError as exc:
+                self.classify_failure(exc)
+                raise
+        return [normalize(job) for job in raw]`,
+    },
   },
   {
     title: "AI Copilot Adoption & Governance Dashboard",
@@ -160,6 +185,19 @@ export const projects: Project[] = [
       "Designed a governance tracking system to support access reviews, policy alignment, and feature rollout documentation.",
     ],
     tags: ["Python", "OpenAI API", "Microsoft Graph API", "Data Pipelines"],
+    architecture:
+      "Python pipelines pull usage telemetry from the Microsoft Graph API and structure it for trend and anomaly detection. A scheduled job calls the OpenAI API to draft plain-English adoption summaries, which render alongside governance tracking views for access reviews and feature rollout status.",
+    code: {
+      language: "python",
+      filename: "engagement_analysis.py",
+      snippet: `def detect_low_engagement(
+    usage: pd.DataFrame, threshold: float = 0.2
+) -> list[str]:
+    weekly = usage.groupby("team")["active_users"].mean()
+    baseline = weekly.median()
+    flagged = weekly[weekly < baseline * threshold]
+    return flagged.index.tolist()`,
+    },
   },
   {
     title: "Distribution Network Design & Power Flow Analysis",

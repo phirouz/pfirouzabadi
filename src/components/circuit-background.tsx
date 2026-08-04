@@ -1,73 +1,188 @@
-type Point = [number, number];
+"use client";
 
-const traces: Point[][] = [
-  [[60, 100], [260, 100], [260, 220], [460, 220], [460, 100], [700, 100], [700, 260]],
-  [[940, 90], [700, 90], [700, 300], [500, 300]],
-  [[60, 420], [220, 420], [220, 520], [440, 520], [440, 420], [660, 420]],
-  [[960, 470], [780, 470], [780, 580], [600, 580]],
-  [[120, 660], [340, 660], [340, 730], [600, 730]],
-  [[860, 660], [860, 520], [700, 520]],
-  [[420, 40], [420, 160], [260, 160]],
-  [[600, 560], [780, 560], [780, 400], [900, 400]],
-];
+import { useEffect, useRef } from "react";
 
-const traceDurations = [7, 9, 6, 10, 8, 7.5, 9.5, 6.5];
+type Node = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+};
 
-const nodes: Point[] = Array.from(
-  new Map(traces.flat().map((p) => [`${p[0]},${p[1]}`, p])).values(),
-);
-
-function toPath(points: Point[]) {
-  return points.map(([x, y], i) => `${i === 0 ? "M" : "L"} ${x} ${y}`).join(" ");
-}
+const LINK_DISTANCE = 150;
+const CURSOR_RADIUS = 180;
 
 export function CircuitBackground() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return;
+
+    const context2d = canvas.getContext("2d");
+    if (!context2d) return;
+    const ctx: CanvasRenderingContext2D = context2d;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let isDark = document.documentElement.classList.contains("dark");
+    const themeObserver = new MutationObserver(() => {
+      isDark = document.documentElement.classList.contains("dark");
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    function colors() {
+      return isDark
+        ? { line: "56, 189, 248", node: "125, 211, 252", cursor: "103, 232, 249" }
+        : { line: "37, 99, 235", node: "37, 99, 235", cursor: "14, 165, 233" };
+    }
+
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let nodes: Node[] = [];
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    function seedNodes() {
+      const density = Math.min(80, Math.max(24, Math.floor((width * height) / 16000)));
+      nodes = Array.from({ length: density }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+      }));
+    }
+
+    function resize() {
+      if (!container || !canvas) return;
+      const rect = container.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seedNodes();
+    }
+
+    function onPointerMove(e: PointerEvent) {
+      const rect = container!.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    }
+
+    function onPointerLeave() {
+      mouse.active = false;
+    }
+
+    function step() {
+      const { line, node, cursor } = colors();
+      ctx.clearRect(0, 0, width, height);
+
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+
+        if (mouse.active) {
+          const dx = n.x - mouse.x;
+          const dy = n.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < CURSOR_RADIUS && dist > 0.01) {
+            const force = ((CURSOR_RADIUS - dist) / CURSOR_RADIUS) * 0.6;
+            n.x += (dx / dist) * force;
+            n.y += (dy / dist) * force;
+          }
+        }
+
+        if (n.x < 0 || n.x > width) n.vx *= -1;
+        if (n.y < 0 || n.y > height) n.vy *= -1;
+        n.x = Math.min(Math.max(n.x, 0), width);
+        n.y = Math.min(Math.max(n.y, 0), height);
+      }
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i];
+          const b = nodes[j];
+          const dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if (dist < LINK_DISTANCE) {
+            ctx.strokeStyle = `rgba(${line}, ${(1 - dist / LINK_DISTANCE) * 0.35})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+
+        if (mouse.active) {
+          const dist = Math.hypot(nodes[i].x - mouse.x, nodes[i].y - mouse.y);
+          if (dist < CURSOR_RADIUS) {
+            ctx.strokeStyle = `rgba(${cursor}, ${(1 - dist / CURSOR_RADIUS) * 0.45})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (const n of nodes) {
+        ctx.fillStyle = `rgba(${node}, 0.7)`;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    resize();
+
+    let raf = 0;
+    function loop() {
+      step();
+      raf = requestAnimationFrame(loop);
+    }
+
+    if (reduceMotion) {
+      step();
+    } else {
+      loop();
+    }
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(container);
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerleave", onPointerLeave);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      resizeObserver.disconnect();
+      themeObserver.disconnect();
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerleave", onPointerLeave);
+    };
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       aria-hidden="true"
-      data-circuit
-      className="pointer-events-none absolute inset-0 overflow-hidden text-accent"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
       style={{
-        maskImage:
-          "linear-gradient(115deg, transparent 0%, transparent 15%, black 55%, black 100%)",
-        WebkitMaskImage:
-          "linear-gradient(115deg, transparent 0%, transparent 15%, black 55%, black 100%)",
+        maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 100%)",
       }}
     >
-      <svg
-        viewBox="0 0 1000 800"
-        preserveAspectRatio="xMaxYMid slice"
-        className="absolute inset-0 h-full w-full opacity-[0.14] dark:opacity-[0.22]"
-        fill="none"
-      >
-        <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          {traces.map((points, i) => (
-            <path
-              key={i}
-              d={toPath(points)}
-              strokeDasharray="6 10"
-              style={{
-                animation: `circuit-flow ${traceDurations[i]}s linear infinite`,
-                animationDelay: `${i * 0.4}s`,
-              }}
-            />
-          ))}
-        </g>
-        <g fill="currentColor">
-          {nodes.map(([x, y], i) => (
-            <circle
-              key={`${x}-${y}`}
-              cx={x}
-              cy={y}
-              r={4}
-              style={{
-                animation: "circuit-pulse 3s ease-in-out infinite",
-                animationDelay: `${(i % 7) * 0.3}s`,
-              }}
-            />
-          ))}
-        </g>
-      </svg>
+      <canvas ref={canvasRef} className="absolute inset-0 opacity-70 dark:opacity-80" />
     </div>
   );
 }
