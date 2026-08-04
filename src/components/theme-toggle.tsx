@@ -33,7 +33,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label="Toggle dark mode"
-      className="relative flex size-9 items-center justify-center rounded-full border border-border text-foreground-muted transition-colors hover:border-accent hover:text-accent"
+      className="relative flex size-9 items-center justify-center rounded-full border border-border text-foreground-muted transition-all duration-200 hover:border-accent hover:text-accent active:scale-90"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

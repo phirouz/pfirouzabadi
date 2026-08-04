@@ -2,9 +2,7 @@ import { ProjectCard } from "@/components/project-card";
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { projects } from "@/lib/resume";
-
-const subheadingClass =
-  "mb-6 font-mono text-xs font-medium uppercase tracking-widest text-foreground-muted";
+import { subheadingClass } from "@/lib/ui";
 
 const professionalProjects = projects.filter((project) => project.kind !== "course");
 const courseProjects = projects.filter((project) => project.kind === "course");

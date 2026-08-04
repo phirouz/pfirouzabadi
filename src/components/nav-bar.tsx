@@ -14,6 +14,7 @@ const links = [
 export function NavBar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeId, setActiveId] = useState("home");
 
   useEffect(() => {
     function onScroll() {
@@ -22,6 +23,25 @@ export function NavBar() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.getElementById(link.href.slice(1)))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActiveId(visible[0].target.id);
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -33,20 +53,26 @@ export function NavBar() {
       }`}
     >
       <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-        <a href="#home" className="font-mono text-sm font-semibold tracking-tight text-foreground">
+        <a href="#home" className="font-heading text-sm font-semibold tracking-tight text-foreground">
           S.Parsa<span className="text-accent">.</span>
         </a>
 
         <div className="hidden items-center gap-8 sm:flex">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-foreground-muted transition-colors hover:text-accent"
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) => {
+            const isActive = activeId === link.href.slice(1);
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? "true" : undefined}
+                className={`relative py-1 text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:text-accent ${
+                  isActive ? "text-accent after:scale-x-100" : "text-foreground-muted"
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
           <ThemeToggle />
         </div>
 
@@ -57,7 +83,7 @@ export function NavBar() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="relative flex size-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent"
+            className="relative flex size-9 items-center justify-center rounded-full border border-border text-foreground transition-all duration-200 hover:border-accent hover:text-accent active:scale-90"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -81,16 +107,22 @@ export function NavBar() {
       >
         <div className="overflow-hidden border-b border-border bg-background px-6 pb-6">
           <div className="flex flex-col gap-4 pt-2">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-base font-medium text-foreground-muted transition-colors hover:text-accent"
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const isActive = activeId === link.href.slice(1);
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive ? "true" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={`text-base font-medium transition-colors hover:text-accent ${
+                    isActive ? "text-accent" : "text-foreground-muted"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

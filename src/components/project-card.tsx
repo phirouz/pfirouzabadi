@@ -3,14 +3,15 @@
 import { useState } from "react";
 import { SkillTag } from "@/components/skill-tag";
 import type { Project } from "@/lib/resume";
+import { cardClass } from "@/lib/ui";
 
 export function ProjectCard({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5">
+    <div className={cardClass}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h4 className="text-lg font-semibold text-foreground">
+        <h4 className="font-heading text-lg font-semibold text-foreground">
           {project.kind === "award" && (
             <span className="mr-2 text-accent" aria-hidden="true">
               ★
@@ -43,7 +44,7 @@ export function ProjectCard({ project }: { project: Project }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="mt-4 flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent-hover"
+        className="mt-4 flex items-center gap-1.5 rounded text-sm font-medium text-accent transition-all duration-150 hover:text-accent-hover active:scale-95"
       >
         {open ? "Hide details" : "Show details"}
         <svg

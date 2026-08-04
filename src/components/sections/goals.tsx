@@ -1,9 +1,7 @@
 import { Reveal } from "@/components/reveal";
 import { Section } from "@/components/section";
 import { goals } from "@/lib/resume";
-
-const cardClass =
-  "rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5";
+import { cardClass } from "@/lib/ui";
 
 export function Goals() {
   return (

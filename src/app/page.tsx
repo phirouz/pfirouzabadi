@@ -1,3 +1,4 @@
+import { BackToTop } from "@/components/back-to-top";
 import { NavBar } from "@/components/nav-bar";
 import { About } from "@/components/sections/about";
 import { Career } from "@/components/sections/career";
@@ -16,6 +17,7 @@ export default function Home() {
         <Projects />
         <Goals />
       </main>
+      <BackToTop />
     </>
   );
 }

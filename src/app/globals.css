@@ -35,6 +35,7 @@
   --color-accent-hover: var(--accent-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-space-grotesk);
 }
 
 * {
@@ -50,6 +51,12 @@ body {
   color: var(--color-foreground);
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -59,5 +66,29 @@ body {
     transition-duration: 0ms !important;
     transform: none !important;
     opacity: 1 !important;
+  }
+
+  [data-circuit] * {
+    animation: none !important;
+  }
+
+  .animate-ping {
+    animation: none !important;
+  }
+}
+
+@keyframes circuit-flow {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes circuit-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
   }
 }

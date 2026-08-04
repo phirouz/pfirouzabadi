@@ -2,21 +2,18 @@ import { Reveal } from "@/components/reveal";
 import { SkillTag } from "@/components/skill-tag";
 import { withBasePath } from "@/lib/base-path";
 import { education, experience } from "@/lib/resume";
-
-const cardClass =
-  "rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5";
-
-const subheadingClass =
-  "mb-6 font-mono text-xs font-medium uppercase tracking-widest text-foreground-muted";
+import { btnPrimaryClass, cardClass, subheadingClass } from "@/lib/ui";
 
 export function Career() {
   return (
-    <section id="career" className="scroll-mt-20 py-20 sm:py-28">
+    <section id="career" className="scroll-mt-20 py-24 sm:py-32">
       <div className="mx-auto max-w-3xl px-6">
         <Reveal>
           <div className="mb-12">
-            <p className="mb-2 font-mono text-sm text-accent">Career</p>
-            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            <p className="mb-2 font-mono text-sm font-medium uppercase tracking-widest text-accent">
+              Career
+            </p>
+            <h2 className="font-heading text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               Where I&apos;ve been
             </h2>
           </div>
@@ -30,7 +27,7 @@ export function Career() {
             <Reveal key={item.school} delayMs={i * 80}>
               <div className={cardClass}>
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h4 className="text-lg font-semibold text-foreground">
+                  <h4 className="font-heading text-lg font-semibold text-foreground">
                     {item.degree}
                   </h4>
                   <span className="font-mono text-xs text-foreground-muted">
@@ -57,7 +54,7 @@ export function Career() {
             <Reveal key={`${job.role}-${job.org}`} delayMs={i * 80}>
               <div className={cardClass}>
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h4 className="text-lg font-semibold text-foreground">
+                  <h4 className="font-heading text-lg font-semibold text-foreground">
                     {job.role}
                   </h4>
                   <span className="font-mono text-xs text-foreground-muted">
@@ -102,7 +99,7 @@ export function Career() {
               target="_blank"
               rel="noopener noreferrer"
               download
-              className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+              className={`shrink-0 ${btnPrimaryClass}`}
             >
               Download Resume
             </a>
