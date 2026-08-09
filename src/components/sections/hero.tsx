@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { CircuitBackground } from "@/components/circuit-background";
 import { Reveal } from "@/components/reveal";
-import { profile } from "@/lib/resume";
+import { portfolioPurpose, profile } from "@/lib/resume";
 import { btnMotion, btnPrimaryClass, btnSecondaryClass } from "@/lib/ui";
 
 export function Hero() {
@@ -40,6 +40,9 @@ export function Hero() {
             Blending hardware fundamentals with applied AI — from FPGA logic
             to RAG-based enterprise agents.
           </p>
+          <p className="mt-4 max-w-xl text-sm italic text-foreground-muted/80 sm:text-base">
+            {portfolioPurpose}
+          </p>
         </Reveal>
 
         <Reveal delayMs={240}>
@@ -54,6 +57,18 @@ export function Hero() {
             >
               Get in touch
             </motion.a>
+          </div>
+        </Reveal>
+
+        <Reveal delayMs={320}>
+          <div className="mt-10 aspect-video w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-card shadow-lg shadow-accent/5">
+            <iframe
+              src="https://drive.google.com/file/d/1Ak7xU9JEwEfFIPJoHwUTz9s35MX-YiGd/preview"
+              className="h-full w-full"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              title="About Me — video introduction"
+            />
           </div>
         </Reveal>
       </div>

@@ -5,6 +5,7 @@ import { Career } from "@/components/sections/career";
 import { Goals } from "@/components/sections/goals";
 import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
+import { Reflections } from "@/components/sections/reflections";
 import { Skills } from "@/components/sections/skills";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
         <Skills />
         <Career />
         <Projects />
+        <Reflections />
         <Goals />
       </main>
       <BackToTop />
