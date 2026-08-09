@@ -6,7 +6,7 @@ export const profile = {
   location: "Toronto, Canada",
 };
 
-export const aboutMe = `I'm a third-year Electrical Engineering student at York University's Lassonde School of Engineering, currently on a 16-month co-op placement at Aecon Group as an AI Developer, where I build agents and automation tools using Microsoft Copilot Studio, Azure AI Foundry, and Python — work that's taught me as much about enterprise constraints as it has about the tools themselves.
+export const aboutMe = `I'm a third-year Electrical Engineering student at York University's Lassonde School of Engineering, currently on a 16-month co-op placement at Aecon Group as an AI Developer, where I build agents and automation tools using Microsoft Copilot Studio, Azure AI Foundry, and Python, work that's taught me as much about enterprise constraints as it has about the tools themselves.
 
 My background spans both hardware and software. I've worked on embedded systems and PCB design as a Research Assistant on York's Robot Tutor Project, and I've built full-stack applications integrating AI APIs for tasks like automated job search and enterprise AI adoption tracking. Moving between those worlds has sharpened how I debug: hardware forces you to verify assumptions physically, and that habit carries over directly into how I trace software failures. My coursework and personal projects cover signal processing, power systems analysis, and digital logic design, alongside practical experience in Python, MATLAB, and FastAPI.
 
@@ -19,18 +19,18 @@ export const portfolioPurpose =
 
 export const goals = {
   nearTerm:
-    "Complete my 16-month co-op as an AI Solutions Developer at Aecon Group, building practical AI agent and automation solutions for internal teams — a placement that keeps testing which of my assumptions about AI actually hold up against enterprise constraints. Graduate from York University's Lassonde School of Engineering with a BEng in Electrical Engineering in 2028, continuing to build hands-on experience across embedded systems, power systems, and applied AI.",
+    "Complete my 16-month co-op as an AI Solutions Developer at Aecon Group, building practical AI agent and automation solutions for internal teams, a placement that keeps testing which of my assumptions about AI actually hold up against enterprise constraints. Graduate from York University's Lassonde School of Engineering with a BEng in Electrical Engineering in 2028, continuing to build hands-on experience across embedded systems, power systems, and applied AI.",
   longTerm:
-    "Grow into a role at the intersection of electrical engineering and AI, combining hardware/systems fundamentals with practical software and automation skills. Continue developing expertise in agent-based AI systems, RAG solutions, and enterprise automation while staying grounded in the engineering principles from my EE background — a balance I'm still learning to strike as the AI tooling landscape keeps shifting underneath it.",
+    "Grow into a role at the intersection of electrical engineering and AI, combining hardware/systems fundamentals with practical software and automation skills. Continue developing expertise in agent-based AI systems, RAG solutions, and enterprise automation while staying grounded in the engineering principles from my EE background, a balance I'm still learning to strike as the AI tooling landscape keeps shifting underneath it.",
 };
 
 export const reflections = `Building AI agents inside a large, safety-conscious organization like Aecon taught me things no coursework could. In an academic setting, a working prototype is often the finish line; in an enterprise context, it's closer to the starting point. I learned to think in terms of who actually uses a tool day to day, what happens when a RAG pipeline returns a confident but wrong answer, and how much of "AI development" is really requirements-gathering, stakeholder trust, and quiet integration work. It reshaped my understanding of applied AI from "can this model do the task" to "can this system be trusted and maintained by people who didn't build it."
 
-The Robot Tutor Project pushed me in a different direction: getting hardware and software to cooperate reliably, inside a seven-person team where a decision made by one subsystem could quietly break another. One of the more instructive moments was tracing an intermittent communication failure between the Raspberry Pi and the rest of the system back to the wireless link itself, not the code running on top of it — switching to a wired Ethernet connection fixed what weeks of software debugging couldn't. It was a good reminder that reliability problems don't always live where you're looking, and that hardware constraints deserve the same rigor as software ones.
+The Robot Tutor Project pushed me in a different direction: getting hardware and software to cooperate reliably, inside a seven-person team where a decision made by one subsystem could quietly break another. One of the more instructive moments was tracing an intermittent communication failure between the Raspberry Pi and the rest of the system back to the wireless link itself, not the code running on top of it; switching to a wired Ethernet connection fixed what weeks of software debugging couldn't. It was a good reminder that reliability problems don't always live where you're looking, and that hardware constraints deserve the same rigor as software ones.
 
-If I'm honest about where I still have room to grow, it's in resisting the pull toward building a fix before I've fully isolated the failure mode I'm solving for. Early in both the Aecon and Robot Tutor work, I caught myself iterating on a solution before confirming the root cause, which cost more time than it saved. I'm actively working on slowing down at that diagnosis stage — writing out what I actually know versus what I'm assuming — before touching code or hardware.
+If I'm honest about where I still have room to grow, it's in resisting the pull toward building a fix before I've fully isolated the failure mode I'm solving for. Early in both the Aecon and Robot Tutor work, I caught myself iterating on a solution before confirming the root cause, which cost more time than it saved. I'm actively working on slowing down at that diagnosis stage, writing out what I actually know versus what I'm assuming, before touching code or hardware.
 
-Taken together, these experiences are why I keep coming back to the intersection of electrical engineering and applied AI rather than picking one lane. The EE side keeps me honest about physical constraints and systems thinking; the AI side is where a lot of the near-term impact is happening. I want to keep building in the space where both matter — enterprise systems and physical systems that need to actually work, not just work in a demo.`;
+Taken together, these experiences are why I keep coming back to the intersection of electrical engineering and applied AI rather than picking one lane. The EE side keeps me honest about physical constraints and systems thinking; the AI side is where a lot of the near-term impact is happening. I want to keep building in the space where both matter: enterprise systems and physical systems that need to actually work, not just work in a demo.`;
 
 export const education = [
   {
@@ -263,7 +263,7 @@ export const projects: Project[] = [
     kind: "course",
   },
   {
-    title: "Winner — York Engineering Competition (YEC), Senior Design",
+    title: "Winner, York Engineering Competition (YEC), Senior Design",
     date: "Oct 2025",
     description:
       "Control system for a real-world air conditioner prototype, ported from ESP32 to STM32 for enhanced performance.",
@@ -274,7 +274,7 @@ export const projects: Project[] = [
     kind: "award",
   },
   {
-    title: "Winner — York Engineering Competition (YEC), Programming",
+    title: "Winner, York Engineering Competition (YEC), Programming",
     date: "Oct 2024",
     description:
       "A data-driven web application to analyze and optimize traffic flow using real-time input and automated data processing.",

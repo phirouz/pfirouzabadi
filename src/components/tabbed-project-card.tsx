@@ -23,7 +23,7 @@ export function TabbedProjectCard({ project }: { project: Project }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // Clipboard permission denied or unavailable — silently ignore.
+      // Clipboard permission denied or unavailable, silently ignore.
     }
   }
 

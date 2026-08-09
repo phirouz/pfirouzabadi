@@ -37,7 +37,7 @@ export function Hero() {
             {profile.name}
           </p>
           <p className="mt-1 max-w-xl text-base text-foreground-muted sm:text-lg">
-            Blending hardware fundamentals with applied AI — from FPGA logic
+            Blending hardware fundamentals with applied AI, from FPGA logic
             to RAG-based enterprise agents.
           </p>
           <p className="mt-4 max-w-xl text-sm italic text-foreground-muted/80 sm:text-base">
@@ -67,7 +67,7 @@ export function Hero() {
               className="h-full w-full"
               allow="autoplay; fullscreen"
               allowFullScreen
-              title="About Me — video introduction"
+              title="About Me video introduction"
             />
           </div>
         </Reveal>
