@@ -161,7 +161,7 @@ function ChatBubble({ message }: { message: Message }) {
   if (message.role === "user") {
     return (
       <div
-        className={`ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-accent px-3 py-2 text-sm ${accentTextClass}`}
+        className={`ml-auto max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-br-sm bg-accent px-3 py-2 text-sm leading-relaxed ${accentTextClass}`}
       >
         {message.content}
       </div>
@@ -170,14 +170,14 @@ function ChatBubble({ message }: { message: Message }) {
 
   if (message.role === "error") {
     return (
-      <div className="max-w-[85%] rounded-2xl rounded-bl-sm border border-red-500/30 bg-red-500/5 px-3 py-2 text-sm text-red-600 dark:text-red-400">
+      <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-bl-sm border border-red-500/30 bg-red-500/5 px-3 py-2 text-sm leading-relaxed text-red-600 dark:text-red-400">
         {message.content}
       </div>
     );
   }
 
   return (
-    <div className="max-w-[85%] rounded-2xl rounded-bl-sm border border-border bg-background-alt px-3 py-2 text-sm text-foreground">
+    <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-bl-sm border border-border bg-background-alt px-3 py-2 text-sm leading-relaxed text-foreground">
       {message.content}
     </div>
   );

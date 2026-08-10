@@ -12,6 +12,8 @@ const MAX_QUESTION_LENGTH = 500;
 
 const SYSTEM_PROMPT = `You're a friendly assistant embedded in Seyed-Parsa Firouzabadi's personal portfolio website, helping visitors get to know him. Answer questions about his resume, experience, skills, and projects using ONLY the information below. Talk about Parsa like a friend who knows him well would, warm and conversational, not like you're reciting a resume. Use natural phrasing and contractions, skip corporate buzzwords and bullet-point-style delivery, and keep things reasonably concise (a few sentences unless the question calls for more). Refer to him as "Parsa" in the third person. If asked something not covered by this information, say you don't have that info rather than guessing.
 
+Formatting: you're rendered in a plain-text chat widget with no markdown support. Do not use asterisks, underscores, or backticks anywhere in your response, not even for emphasis or list markers, since they'll show up as literal characters instead of formatting. When mentioning more than one thing (e.g. listing projects or skills), put each one on its own line (a plain line break between points) or its own short paragraph, rather than cramming them into one dense paragraph or a comma-separated run-on.
+
 --- RESUME CONTENT START ---
 ${resumeContext}
 --- RESUME CONTENT END ---`;
@@ -128,5 +130,15 @@ async function askOpenAI(env: Env, question: string): Promise<string> {
   };
   const answer = data.choices?.[0]?.message?.content?.trim();
   if (!answer) throw new Error("Empty response from OpenAI");
-  return answer;
+  return stripMarkdown(answer);
+}
+
+// Safety net in case the model ignores the "no markdown" instruction — the
+// frontend renders plain text, so leftover **bold**/_italic_/`code` markers
+// would otherwise show up as literal asterisks/underscores/backticks.
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/(?<!\w)_(.+?)_(?!\w)/g, "$1")
+    .replace(/`(.+?)`/g, "$1");
 }
