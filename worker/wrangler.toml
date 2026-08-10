@@ -1,0 +1,16 @@
+name = "portfolio-chat-worker"
+main = "src/index.ts"
+compatibility_date = "2026-08-10"
+
+# Public, non-secret config. The OpenAI API key is NOT here — it's set with
+# `wrangler secret put OPENAI_API_KEY` so it never touches source control.
+[vars]
+ALLOWED_ORIGIN = "https://phirouz.github.io"
+RATE_LIMIT_PER_HOUR = "20"
+OPENAI_MODEL = "gpt-4o-mini"
+
+# Created with `wrangler kv namespace create RATE_LIMIT_KV` — replace `id`
+# below with the id that command prints out.
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"

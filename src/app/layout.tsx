@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { ChatWidget } from "@/components/chat-widget";
 import { ThemeScript } from "@/components/theme-script";
 import { basePath } from "@/lib/base-path";
 import "./globals.css";
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeScript />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );

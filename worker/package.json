@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-chat-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:context": "node scripts/build-context.mjs",
+    "dev": "npm run build:context && wrangler dev",
+    "deploy": "npm run build:context && wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260810.1",
+    "typescript": "^5",
+    "wrangler": "^4.120.1"
+  }
+}
